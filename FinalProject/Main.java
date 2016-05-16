@@ -2,8 +2,9 @@ import java.util.*;
 
 public class Main{
     public static void main(String[]args){
-	Board board = new Board();
+	ConnectFour board = new ConnectFour();
 	System.out.println(board + "\n");
+	System.out.println(board.emptyTilesCount + "\n");
 	board.add(2, "X");
 	System.out.println(board + "\n");
 	board.remove(2);
@@ -17,7 +18,7 @@ public class Main{
 	board.remove(0);
 	System.out.println(board + "\n");
 	System.out.println("The winner is: " + board.checkBoard(3) + "\n");
-	Board boardTwo = new Board();
+	ConnectFour boardTwo = new ConnectFour();
 	boardTwo.add(3, "X");
 	boardTwo.add(3, "X");
 	boardTwo.add(3, "X");

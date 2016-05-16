@@ -4,8 +4,8 @@ public class ConnectFour{
 
     private String[][] board;
     private String[][] boardT;  //board tranposed
-    private static final int size = 6;
-    private static int emptyTilesCount = size * size;
+    private final int size = 6;
+    public int emptyTilesCount = size * size;
 
     /**
      * Initialize the board filling every cells with spaces
@@ -81,28 +81,19 @@ public class ConnectFour{
 	String[] column = board[col];
 	int i;
 	for(i = size - 1; i >= 0 && column[i].equals(" "); i--);
+	// column check
 	int count = 0;
 	for(int j = i; j < size && column[i].equals(column[j]); j++, count++);
-	if (count == 4)
-	    {
-		return column[i];
-	    }
-	count = 0;
 	for(int j = i; j > -1 && column[i].equals(column[j]); j--, count++);
-	if (count == 4)
+	if (count >= 4)
 	    {
 		return column[i];
 	    }
 	String[] row = boardT[i];
 	count = 0;
 	for(int j = i; j < size && row[col].equals(row[j]); j++, count++);
-	if (count == 4)
-	    {
-		return row[col];
-	    }
-	count = 0;
 	for(int j = i; j > -1 && row[col].equals(row[j]); j--, count++);
-	if (count == 4)
+	if (count >= 4)
 	    {
 		return row[col];
 	    }
@@ -159,19 +150,19 @@ public class ConnectFour{
     //otherwise repeat until move is valid
     public static void main(String[]args)
     {
-	
+	ConnectFour connectFour = new ConnectFour();
 	String[] possibleInputs = {"1","2","3","4"}; 
 	if(true)//Math.random()*2==0)
 	    {
 		System.out.println("You start!");
 		String input  = getUserInput(possibleInputs);
-		board.add(Integer.parseInt(input) - 1
-			  }
-		else
-		    {
-			System.out.println("Computer starts!");
-		    }
+		connectFour.add(Integer.parseInt(input) - 1, "X");
 	    }
+	else
+	    {
+		System.out.println("Computer starts!");
+	    }
+    }
 
     /**
      * Return the string representation of the board
@@ -179,17 +170,12 @@ public class ConnectFour{
      * @return the string representation of the board
      */
     public String toString(){
-        for(int i = size - 1; i >= 0; i--)
-	    {
-		System.out.println(Arrays.toString(boardT[i]));
-	    }
-	String[][] copy = tranposeArray();
 	String ans = "|";
 	for(int i = size - 1; i >= 0; i--)
 	    {
 		for(int j = 0; j < size; j++)
 		    {
-			ans += copy[i][j];
+			ans += boardT[i][j];
 			ans += "|";
 		    }
 		ans += "\n";
