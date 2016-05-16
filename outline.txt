@@ -1,0 +1,12 @@
+Connect Four Outline:
+
+Interface
+We plan to do this in the terminal with the board represented using ASCII characters.  Perhaps we can use '|' to separate each column?  We will ask the user to input the column number and the piece will be inserted in the appropriate column assuming that there is room for it.
+
+Board Representation
+We can represent the board as a 2D array where each column is its own array.  This allows us to loop through each column quickly and determine where to add the most recent marker.  The trade-off is printing the array as we print by rows not columns.  Perhaps we can use terminal codes to move the cursor around?
+
+Game Engine
+We would start by asking the player which marker they wish to use and who is going first.  After reading in these answers, we prompt the user to enter in a column number.  The array would be updated and we would then evaluate the board for end game conditions.  If the game is over, then the appropriate message would be printed and the program would prompt the user to play again or quit.  If the game is over, the second player is prompted to make his/her move.
+
+After getting the two-player option to work, we plan to implement a bot for this game.  As of current the plan is to use minimax algorithm with alpha-beta pruning optimization to determine the best move and then make that move.
