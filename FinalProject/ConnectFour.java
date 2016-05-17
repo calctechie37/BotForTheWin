@@ -5,7 +5,7 @@ public class ConnectFour{
     private String[][] board;
     private String[][] boardT;  //board tranposed
     private final int size = 6;
-    public int emptyTilesCount = size * size;
+    private int emptyTilesCount = size * size;
 
     /**
      * Initialize the board filling every cells with spaces
@@ -85,7 +85,7 @@ public class ConnectFour{
 	int count = 0;
 	for(int j = i; j < size && column[i].equals(column[j]); j++, count++);
 	for(int j = i; j > -1 && column[i].equals(column[j]); j--, count++);
-	if (count >= 4)
+	if (count > 4)
 	    {
 		return column[i];
 	    }
@@ -93,9 +93,30 @@ public class ConnectFour{
 	count = 0;
 	for(int j = i; j < size && row[col].equals(row[j]); j++, count++);
 	for(int j = i; j > -1 && row[col].equals(row[j]); j--, count++);
-	if (count >= 4)
+	if (count > 4)
 	    {
 		return row[col];
+	    }
+	count = 0;
+	String original = row[col];
+	int copy1 = col;
+	int copy2 = col;
+	for(int j = i; j < size && copy1 < size && boardT[j][copy1].equals(original); j++, copy1++, count++);
+	for(int j = i; j > -1 && copy2 > -1 && boardT[j][copy2].equals(original); j--, copy2--, count++);
+	count--;
+	if (count > 3)
+	    {
+		return original;
+	    }
+	count = 0;
+	copy1 = col;
+	copy2 = col;
+	for(int j = i; j < size && copy1 > -1 && boardT[j][copy1].equals(original); j++, copy1--, count++);
+	for(int j = i; j > -1  && copy2 < size && boardT[j][copy2].equals(original); j--, copy2++, count++);
+	count--;
+	if (count > 3)
+	    {
+		return original;
 	    }
 	if (emptyTilesCount == 0)
 	    {
