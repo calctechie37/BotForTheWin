@@ -138,20 +138,16 @@ public class ConnectFour{
 	String ret="";
 	if(s.hasNext())
 	    {
-		//		System.out.println("Found");
 		ret = s.next();
-		//	System.out.println(ret);
 		if(ret.equals("q"))
 		    {
-			System.out.println("Player forfeits");
-			return "Player forfeits";
+			System.out.println("Player forfeits. Bot wins!");
+			return "q";
 		    }
 		for(int i = 0;i<possibleInputs.length;i++)
 		    {
-			//	System.out.println("LOL");
 			if(ret.equals(possibleInputs[i]))
 			    {
-				//	System.out.println(ret);
 				return ret;
 			    }
 		    }
@@ -177,17 +173,28 @@ public class ConnectFour{
     public static void main(String[]args)
     {
 	ConnectFour connectFour = new ConnectFour();
-	String[] possibleInputs = {"1","2","3","4"}; 
-	if(true)//Math.random()*2==0)
+	String[] possibleInputs = {"1","2","3","4","5","6"}; 
+	
+	String input  = getUserInput(possibleInputs);
+	if(!input.equals("q"))
 	    {
-		//System.out.println("You start!");
-		String input  = getUserInput(possibleInputs);
-		//connectFour.add(Integer.parseInt(input) - 1, "X");
+		connectFour.add(Integer.parseInt(input) - 1, "X");
 	    }
+	System.out.println(connectFour);
+	while(checkboard().equals(""))
+	    {
+		input  = getUserInput(possibleInputs);
+		if(!input.equals("q"))
+		    {
+			connectFour.add(Integer.parseInt(input) - 1, "X");
+		    }
+		System.out.println(connectFour);
+	    }/*
 	else
 	    {
 		System.out.println("Computer starts!");
 	    }
+	     */
     }
 
     /**
