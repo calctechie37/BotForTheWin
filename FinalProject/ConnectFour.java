@@ -14,7 +14,7 @@ public class ConnectFour{
     {
 	board = new String[size][size];
 	boardT = new String[size][size];
-	for(int i = 0; i < size; i++)
+        for(int i = 0; i < size; i++)
 	    {
 		for(int j = 0; j < size; j++)
 		    {
@@ -132,28 +132,33 @@ public class ConnectFour{
      */
     public static String getUserInput(String[] possibleInputs)
     {
-	String ret = "";
+	System.out.println("Your turn!");
 	Scanner s = new Scanner(System.in);
-	int i =0;
-	if(s.next()=="exit")
+       
+	String ret="";
+	if(s.hasNext())
 	    {
-		return "Player forfeits";
-	    }
-	while(s.hasNext())
-	    {
-		ret = s.next(possibleInputs[i]);
-		i++;
-	    }
-	if(ret=="")
-	    {
-		System.out.println("Not a valid input fool");
-		return getUserInput(possibleInputs);
-	    } 
-	else
-	    {
-		return ret;
+		//		System.out.println("Found");
+		ret = s.next();
+		//	System.out.println(ret);
+		if(ret.equals("q"))
+		    {
+			System.out.println("Player forfeits");
+			return "Player forfeits";
+		    }
+		for(int i = 0;i<possibleInputs.length;i++)
+		    {
+			//	System.out.println("LOL");
+			if(ret.equals(possibleInputs[i]))
+			    {
+				//	System.out.println(ret);
+				return ret;
+			    }
+		    }
 	    }
 
+	System.out.println("Not a valid input fool");
+	return getUserInput(possibleInputs);
     }
     
     /**
@@ -175,9 +180,9 @@ public class ConnectFour{
 	String[] possibleInputs = {"1","2","3","4"}; 
 	if(true)//Math.random()*2==0)
 	    {
-		System.out.println("You start!");
+		//System.out.println("You start!");
 		String input  = getUserInput(possibleInputs);
-		connectFour.add(Integer.parseInt(input) - 1, "X");
+		//connectFour.add(Integer.parseInt(input) - 1, "X");
 	    }
 	else
 	    {
