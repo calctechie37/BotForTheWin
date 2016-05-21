@@ -6,6 +6,36 @@ We plan to start out with Connect Four. After we complete a basic version of Con
 
 <b>Development Log</b>
 
+5/21/16: Version 0.6
+<br>
+Patrick: Finished incorporating the evaluation function into the minimax algorithm, reorganized code into separate objects, and incorporated the user input into the reorganized code, and optimized the Bot.
+<br>
+Optimization made to the Bot:<br>
+- Implemented alpha-beta pruning with ordering of possible moves (Shaved 24 minutes)<br>
+- Cut down on expensive computations (Shaved 2 minutes)<br>
+- Small optimization in loops (Shaved ~30 seconds)<br>
+<br>
+Note: The Bot currently implements a hackish optimization to meet user's demand for speed where for the first eight moves it looks only 11 moves ahead and afterward it looks 15 moves ahead.
+<br>
+
+<br>
+
+5/20/16: Version 0.4
+<br>
+Patrick: Fixed IndexOutOfBoundException Error and logic error in bot
+<br>
+
+<br>
+
+5/18/16: Version 0.3
+<br>
+Charles: Improved on the user input functionality
+<br>
+Patrick: Performed more research on heuristic evaluation functions
+<br>
+
+<br>
+
 5/17/16: Version 0.2
 <br>
 Patrick: Fixed bugs in the checkBoard function and added diagonal checks to the checkBoard function.  Also, updated Main.java with new tests.
