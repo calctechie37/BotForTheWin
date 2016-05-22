@@ -3,6 +3,7 @@ import java.util.*;
 public class Board{
     
     private String[][] board;
+    private int[] emptySpots;
     private final int size = 6;
     private int emptyTilesCount = size * size;
     private boolean debug = false;
@@ -10,10 +11,12 @@ public class Board{
     public Board()
     {
 	board = new String[size][size];
+	emptySpots = new int[size];
 	for(int i = 0; i < size; i++)
 	    {
 		for(int j = 0; j < size; board[i][j] = " ", j++);
 	    }
+	for(int j = 0; j < size; emptySpots[j] = 0, j++);
     }
 
     public int getSize()
@@ -24,6 +27,11 @@ public class Board{
     public int getEmptyTilesCount()
     {
 	return emptyTilesCount;
+    }
+
+    public int[] getEmptySpots()
+    {
+	return emptySpots;
     }
 
     public String getItem(int row, int col)
@@ -45,6 +53,7 @@ public class Board{
 	    {
 		board[row][col] = marker;
 		emptyTilesCount--;
+		emptySpots[col]++;
 		return true;
 	    }
 	return false;
@@ -69,6 +78,7 @@ public class Board{
 	    {
 		board[row][col] = marker;
 		emptyTilesCount--;
+		emptySpots[col]++;
 		return true;
 	    }
     }
@@ -83,6 +93,7 @@ public class Board{
     {
 	board[row][col] = " ";
 	emptyTilesCount++;
+	emptySpots[col]--;
     }
 
     /**                                                                     
@@ -98,6 +109,7 @@ public class Board{
 	    {
 		board[row][col] = " ";
 		emptyTilesCount++;
+		emptySpots[col]--;
 	    }
     }
 
