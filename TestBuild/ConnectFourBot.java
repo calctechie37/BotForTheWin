@@ -37,32 +37,24 @@ public class ConnectFourBot
 
     private ArrayList<IntegerPair> availableMoves()
     {
-	ArrayList<IntegerPair> temp = new ArrayList<IntegerPair>();
 	ArrayList<IntegerPair> possibleMoves = new ArrayList<IntegerPair>();
-	for(int i = 0; i < size; i++)
-	    {
-		int j;
-		for(j = size - 1; j > -1 && (board.getItem(j, i)).equals(" "); j--);
-		if (++j >= size)
-		    {
-			continue;
-		    }
-		IntegerPair move = new IntegerPair(j, i);
-	        temp.add(move);
-	    }
-	int tempSize = temp.size();
-	int i = tempSize / 2;
+	int[] emptySpots = board.getEmptySpots();
+	int i = size / 2;
 	int j = i--;
-	while (i > -1 || j < tempSize)
+	while (i > -1 || j < size)
 	    {
-		if (i > -1)
+		if (i > -1 && emptySpots[i] < size)
 		    {
-			possibleMoves.add(temp.get(i--));
+			IntegerPair move = new IntegerPair(emptySpots[i], i);
+			possibleMoves.add(move);
 		    }
-		if (j < tempSize)
+		if (j < size && emptySpots[j] < size)
 		    {
-			possibleMoves.add(temp.get(j++));
+			IntegerPair move = new IntegerPair(emptySpots[j], j);
+			possibleMoves.add(move);
 		    }
+		i--;
+		j++;
 	    }
 	return possibleMoves;
     }
@@ -168,7 +160,7 @@ public class ConnectFourBot
 	return total;
     }
 
-    private boolean isValidMarkerPosition(int row, int col, String marker)
+    private boolean sameMarker(int row, int col, String marker)
     {
 	return row > -1 && col > -1 && row < size && col < size && (board.getItem(row, col)).equals(marker);
     }
@@ -177,7 +169,7 @@ public class ConnectFourBot
     {
 	int row = position.first() + count * directions.first();
 	int col = position.second() + count * directions.second();
-	while (isValidMarkerPosition(row, col, marker))
+	while (sameMarker(row, col, marker))
 	    {
 		visited[row][col] = true;
 		count++;
@@ -196,23 +188,23 @@ public class ConnectFourBot
 	return new IntegerPair(playerLength, possibleLength);
     }
 
-    private int getStrength(IntegerPair lastMove, String marker, boolean[][] visited, int[][] directions)
+    private int getRating(IntegerPair lastMove, String marker, boolean[][] checked, int[][] directions)
     {
-	int strength = 0;
+	int rating = 0;
         for(int i = 0; i < 4; ++i)
             {
                 IntegerPair direction = new IntegerPair(directions[0][i], directions[1][i]);
-                IntegerPair posDirScore = getLengthPair(lastMove, direction, marker, visited);
+                IntegerPair posDirScore = getLengthPair(lastMove, direction, marker, checked);
                 direction = new IntegerPair(-directions[0][i], -directions[1][i]);
-                IntegerPair negDirScore = getLengthPair(lastMove, direction, marker, visited);
+                IntegerPair negDirScore = getLengthPair(lastMove, direction, marker, checked);
                 if (posDirScore.second() + negDirScore.second() >= 3)
                     {
                         int coefficient = marker.equals(markers[turn]) ? 1 : -1;
                         coefficient = (coefficient == -1 && marker.equals(markers[1 - turn])) ? -1 : 0;
-                        strength += coefficient * lineWeights[posDirScore.first() + negDirScore.first()];
+                        rating += coefficient * lineWeights[posDirScore.first() + negDirScore.first()];
                     }
             }
-        return strength;
+        return rating;
 
     }
 
@@ -220,21 +212,21 @@ public class ConnectFourBot
     {
 	int total = 0;
         int[][] directions = {{1,1,0,-1}, {0,1,1,1}};
-	boolean[][] visited = new boolean[size][size];
+	boolean[][] checked = new boolean[size][size];
 	for(int row = 0; row < size; ++row)
             {
                 for(int col = 0; col < size; ++col)
                     {
-                        if (visited[row][col])
+                        if (checked[row][col])
                             {
                                 continue;
                             }
                         String marker = board.getItem(row, col);
                         if (!(marker.equals(" ")))
                             {
-                                total += getStrength(new IntegerPair(row, col), marker, visited, directions);
+                                total += getRating(new IntegerPair(row, col), marker, checked, directions);
 			    }
-                        visited[row][col] = true;
+                        checked[row][col] = true;
                     }
             }
         return total;
