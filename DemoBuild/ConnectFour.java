@@ -22,36 +22,6 @@ public class ConnectFour
 	this.turn = turn;
     }
 
-    public boolean add(int col, String marker)
-    {
-	return board.add(col, marker);
-    }
-
-    public boolean add(int row, int col, String marker)
-    {
-	return board.add(row, col, marker);
-    }
-
-    public void remove(int col)
-    {
-	board.remove(col);
-    }
-
-    public void remove(int row, int col)
-    {
-	board.remove(row, col);
-    }
-
-    public String checkBoard()
-    {
-	return board.checkBoard();
-    }
-
-    public String checkBoard(int i, int j)
-    {
-	return board.checkBoard(i, j);
-    }
-
     public void getBestMove()
     {
 	IntegerPair compMove = AI.getBestMove(board);
@@ -105,7 +75,7 @@ public class ConnectFour
 			if (!input.equals("q"))
 			    {
 				int processedInput = Integer.parseInt(input) - 1;
-				if (add(processedInput, "X"))
+				if (board.add(processedInput, "X"))
 				    {
 					turn = 1 - turn;
 				    }
