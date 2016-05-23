@@ -187,14 +187,27 @@ public class Board{
 	return (emptyTilesCount == 0) ? "draw" : "";
     }
 
+    private String color(String marker)
+    {
+	if (marker.equals("X"))
+	    {
+		return ("\u001B[31m" + marker + "\u001B[0m");
+	    }
+	else if (marker.equals("O"))
+	    {
+		return ("\u001B[34m" + marker + "\u001B[0m");
+	    }
+	return marker;
+    }
+
     public String toString()
     {
-	String ans = "|";
+	String ans = "\033[2J\033[0;0H 1 2 3 4 5 6\n|";
 	for(int i = size - 1; i >= 0; i--)
 	    {
 		for(int j = 0; j < size; j++)
 		    {
-			ans += board[i][j];
+			ans += color(board[i][j]);
 			ans += "|";
 		    }
 		ans += "\n";
@@ -203,6 +216,7 @@ public class Board{
 			ans += "|";
 		    }
 	    }
+	ans += " 1 2 3 4 5 6";
 	return ans;
     }
 }
