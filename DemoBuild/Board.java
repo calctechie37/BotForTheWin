@@ -6,6 +6,7 @@ public class Board{
     private int[] emptySpots;
     private final int size = 6;
     private int emptyTilesCount = size * size;
+    private IntegerPair lastMove;
     private boolean debug = false;
 
     public Board()
@@ -54,6 +55,7 @@ public class Board{
 		board[row][col] = marker;
 		emptyTilesCount--;
 		emptySpots[col]++;
+		lastMove = new IntegerPair(row, col);
 		return true;
 	    }
 	return false;
@@ -79,6 +81,7 @@ public class Board{
 		board[row][col] = marker;
 		emptyTilesCount--;
 		emptySpots[col]++;
+		lastMove = new IntegerPair(row, col);
 		return true;
 	    }
     }
@@ -187,8 +190,13 @@ public class Board{
 	return (emptyTilesCount == 0) ? "draw" : "";
     }
 
-    private String color(String marker)
+    private String color(int i, int j)
     {
+	String marker = board[i][j];
+	if (lastMove != null && lastMove.first() == i && lastMove.second() == j)
+	    {
+		return ("\u001B[32m" + marker + "\u001B[0m");
+	    }
 	if (marker.equals("X"))
 	    {
 		return ("\u001B[31m" + marker + "\u001B[0m");
@@ -207,7 +215,7 @@ public class Board{
 	    {
 		for(int j = 0; j < size; j++)
 		    {
-			ans += color(board[i][j]);
+			ans += color(i, j);
 			ans += "|";
 		    }
 		ans += "\n";
