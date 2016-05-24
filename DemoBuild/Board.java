@@ -210,7 +210,12 @@ public class Board{
 
     public String toString()
     {
-	String ans = "\033[2J\033[0;0H 1 2 3 4 5 6\n|";
+	String header = "Welcome to Connect Four by Team BotForTheWin!\n\nIn this version of Connect Four, "
+	    + "you will be playing against a bot.  Choose the column to drop the marker in by\nentering the "
+	    + "corresponding column number which are conveniently displayed on both the top and bottom of the"
+	    + "\nboard.  The most recent move would be colored green.  Your marker is a red 'X' while the "
+	    + "bot's marker is a blue 'O'.\n\nGood luck and enjoy!\n\n";
+	String ans = "\033[2J\033[0;0H" + header + " 1 2 3 4 5 6\n|";
 	for(int i = size - 1; i >= 0; i--)
 	    {
 		for(int j = 0; j < size; j++)

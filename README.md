@@ -14,6 +14,11 @@ We plan to start out with Connect Four. After we complete a basic version of Con
 
 ##<b>Development Log</b>
 
+<b>5/23/16: Version 0.61</b>
+<br>
+Patrick: Made a couple of optimization to speed the bot up further.  Also improved the user interface: 'X' are colored red, 'O' are colored blue, the most recent move is colored green, the terminal is cleared each time the board is updated, markings are displayed on both the top of the board and bottom of the board to help distinguish the columns, and a brief introduction is added.
+<br>
+
 <b>5/21/16 - 5/22/16: Version 0.6</b>
 <br>
 Patrick: Finished incorporating the evaluation function into the minimax algorithm, reorganized code into separate objects, and incorporated the user input into the reorganized code, and optimized the Bot.
