@@ -6,6 +6,7 @@ public class Board{
     private int[] emptySpots;
     private final int size = 6;
     private int emptyTilesCount = size * size;
+    private IntegerPair lastMove;
     private boolean debug = false;
 
     public Board()
@@ -54,6 +55,7 @@ public class Board{
 		board[row][col] = marker;
 		emptyTilesCount--;
 		emptySpots[col]++;
+		lastMove = new IntegerPair(row, col);
 		return true;
 	    }
 	return false;
@@ -79,6 +81,7 @@ public class Board{
 		board[row][col] = marker;
 		emptyTilesCount--;
 		emptySpots[col]++;
+		lastMove = new IntegerPair(row, col);
 		return true;
 	    }
     }
@@ -187,8 +190,13 @@ public class Board{
 	return (emptyTilesCount == 0) ? "draw" : "";
     }
 
-    private String color(String marker)
+    private String color(int i, int j)
     {
+	String marker = board[i][j];
+	if (lastMove != null && lastMove.first() == i && lastMove.second() == j)
+	    {
+		return ("\u001B[32m" + marker + "\u001B[0m");
+	    }
 	if (marker.equals("X"))
 	    {
 		return ("\u001B[31m" + marker + "\u001B[0m");
@@ -202,12 +210,17 @@ public class Board{
 
     public String toString()
     {
-	String ans = "\033[2J\033[0;0H 1 2 3 4 5 6\n|";
+	String header = "Welcome to Connect Four by Team BotForTheWin!\n\nIn this version of Connect Four, "
+	    + "you will be playing against a bot.  Choose the column to drop the marker in by\nentering the "
+	    + "corresponding column number which are conveniently displayed on both the top and bottom of the"
+	    + "\nboard.  The most recent move would be colored green.  Your marker is a red 'X' while the "
+	    + "bot's marker is a blue 'O'.\n\nGood luck and enjoy!\n\n";
+	String ans = "\033[2J\033[0;0H" + header + " 1 2 3 4 5 6\n|";
 	for(int i = size - 1; i >= 0; i--)
 	    {
 		for(int j = 0; j < size; j++)
 		    {
-			ans += color(board[i][j]);
+			ans += color(i, j);
 			ans += "|";
 		    }
 		ans += "\n";

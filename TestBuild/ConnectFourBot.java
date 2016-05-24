@@ -10,12 +10,12 @@ public class ConnectFourBot
     private int size;
     private int searchDepth = 15;
     private String[] markers = {"X", "O"};
-    private int[][] boardValues = {{3, 4, 5, 7, 5, 4, 3},
-				   {4, 6, 8, 10, 8, 6, 4},
-				   {5, 8, 11, 13, 11, 8, 5}, 
-				   {5, 8, 11, 13, 11, 8, 5},
-				   {4, 6, 8, 10, 8, 6, 4},
-				   {3, 4, 5, 7, 5, 4, 3}};
+    private int[][] boardValues = {{3, 4, 7, 7, 4, 3},
+				   {4, 6, 10, 10, 6, 4},
+				   {5, 8, 13, 13, 8, 5}, 
+				   {5, 8, 13, 13, 8, 5},
+				   {4, 6, 10, 10, 6, 4},
+				   {3, 4, 7, 7, 4, 3}};
     private int[] lineWeights = {0, 10, 100};
 
     public ConnectFourBot()
