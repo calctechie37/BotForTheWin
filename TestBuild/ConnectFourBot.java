@@ -8,7 +8,7 @@ public class ConnectFourBot
     private IntegerPair compMove;
     private int turn = 1;
     private int size;
-    private int searchDepth = 11;
+    private int searchDepth = 15;
     private String[] markers = {"X", "O"};
     private int[][] boardValues = {{3, 4, 5, 7, 5, 4, 3},
 				   {4, 6, 8, 10, 8, 6, 4},
