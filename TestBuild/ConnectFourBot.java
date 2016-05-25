@@ -8,7 +8,7 @@ public class ConnectFourBot
     private IntegerPair compMove;
     private int turn = 1;
     private int size;
-    private int searchDepth = 15;
+    private int searchDepth = 11;
     private String[] markers = {"X", "O"};
     private int[] lineWeights = {0, 10, 100};
 
@@ -66,9 +66,9 @@ public class ConnectFourBot
 	    }
 	else
 	    {
-		if (board.getEmptyTilesCount() < (size * size - 8))
+		if (board.getEmptyTilesCount() < (size * size - 10))
 		    {
-			searchDepth = 15;
+			searchDepth = 25;
 		    }
 	    }
 	depth++;

@@ -5,7 +5,6 @@ public class Board{
     private String[][] board;
     private int[] emptySpots;
     private final int size = 6;
-    private int boardScore = 0;
     private int emptyTilesCount = size * size;
     private IntegerPair lastMove;
     private boolean debug = false;
@@ -62,7 +61,6 @@ public class Board{
 		board[row][col] = marker;
 		emptyTilesCount--;
 		emptySpots[col]++;
-		boardScore += ((marker.equals("X") ? 1 : -1)) * boardValues[row][col];
 		lastMove = new IntegerPair(row, col);
 		return true;
 	    }
@@ -89,7 +87,6 @@ public class Board{
 		board[row][col] = marker;
 		emptyTilesCount--;
 		emptySpots[col]++;
-		boardScore += ((marker.equals("X")) ? 1 : -1) * boardValues[row][col];
 		lastMove = new IntegerPair(row, col);
 		return true;
 	    }
@@ -109,7 +106,6 @@ public class Board{
 		board[row][col] = " ";
 		emptyTilesCount++;
 		emptySpots[col]--;
-		boardScore -= ((marker.equals("X")) ? 1 : -1) * boardValues[row][col];
 	    }
     }
 	
@@ -128,7 +124,6 @@ public class Board{
 		board[row][col] = " ";
 		emptyTilesCount++;
 		emptySpots[col]--;
-		boardScore -= ((marker.equals("X")) ? 1 : -1) * boardValues[row][col];
 	    }
     }
 

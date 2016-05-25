@@ -66,9 +66,9 @@ public class ConnectFourBot
 	    }
 	else
 	    {
-		if (board.getEmptyTilesCount() < (size * size - 8))
+		if (board.getEmptyTilesCount() < (size * size - 10))
 		    {
-			searchDepth = 15;
+			searchDepth = 25;
 		    }
 	    }
 	depth++;
