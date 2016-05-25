@@ -9,22 +9,6 @@ public class IntegerPair
 	this.second = second;
     }
 
-    public void setFirst(int first)
-    {
-	this.first = first;
-    }
-
-    public void setSecond(int second)
-    {
-	this.second = second;
-    }
-
-    public void set(int first, int second)
-    {
-	setFirst(first);
-	setSecond(second);
-    }
-    
     public int first()
     {
 	return first;

@@ -10,12 +10,6 @@ public class ConnectFourBot
     private int size;
     private int searchDepth = 11;
     private String[] markers = {"X", "O"};
-    private int[][] boardValues = {{3, 4, 7, 7, 4, 3},
-				   {4, 6, 10, 10, 6, 4},
-				   {5, 8, 13, 13, 8, 5}, 
-				   {5, 8, 13, 13, 8, 5},
-				   {4, 6, 10, 10, 6, 4},
-				   {3, 4, 7, 7, 4, 3}};
     private int[] lineWeights = {0, 10, 100};
 
     public ConnectFourBot()
@@ -128,32 +122,7 @@ public class ConnectFourBot
 	    {
 		return 0;
 	    }
-	int total = 0;
-	total += boardStrength(turn);
-	total += linkedRowStrength();
-	return total;
-    }
-
-    private int boardStrength(int turncopy)
-    {
-	int total = 0;
-	for(int row = 0; row < size; row++)
-	    {
-		for(int col = 0; col < size; col++)
-		    {
-			int coefficient = 0;
-			if ((board.getItem(row, col)).equals(markers[turn]))
-			    {
-				coefficient = 1;
-			    }
-			if ((board.getItem(row, col)).equals(markers[1 - turn]))
-			    {
-				coefficient = -1;
-			    }
-			total += coefficient * boardValues[row][col];
-		    }
-	    }
-	return total;
+	return linkedRowStrength();
     }
 
     private boolean sameMarker(int row, int col, String marker)
@@ -201,7 +170,6 @@ public class ConnectFourBot
                     }
             }
         return rating;
-
     }
 
     private int linkedRowStrength()

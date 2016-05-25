@@ -5,9 +5,16 @@ public class Board{
     private String[][] board;
     private int[] emptySpots;
     private final int size = 6;
+    private int boardScore = 0;
     private int emptyTilesCount = size * size;
     private IntegerPair lastMove;
     private boolean debug = false;
+    private int[][] boardValues = {{3, 4, 7, 7, 4, 3},
+				   {4, 6, 10, 10, 6, 4},
+				   {5, 8, 13, 13, 8, 5}, 
+				   {5, 8, 13, 13, 8, 5},
+				   {4, 6, 10, 10, 6, 4},
+				   {3, 4, 7, 7, 4, 3}};
 
     public Board()
     {
@@ -55,6 +62,7 @@ public class Board{
 		board[row][col] = marker;
 		emptyTilesCount--;
 		emptySpots[col]++;
+		boardScore += ((marker.equals("X") ? 1 : -1)) * boardValues[row][col];
 		lastMove = new IntegerPair(row, col);
 		return true;
 	    }
@@ -81,6 +89,7 @@ public class Board{
 		board[row][col] = marker;
 		emptyTilesCount--;
 		emptySpots[col]++;
+		boardScore += ((marker.equals("X")) ? 1 : -1) * boardValues[row][col];
 		lastMove = new IntegerPair(row, col);
 		return true;
 	    }
@@ -94,11 +103,16 @@ public class Board{
      **/
     public void remove(int row, int col)
     {
-	board[row][col] = " ";
-	emptyTilesCount++;
-	emptySpots[col]--;
+	if (!board[row][col].equals(" "))
+	    {
+		String marker = board[row][col];
+		board[row][col] = " ";
+		emptyTilesCount++;
+		emptySpots[col]--;
+		boardScore -= ((marker.equals("X")) ? 1 : -1) * boardValues[row][col];
+	    }
     }
-
+	
     /**                                                                     
      * Remove the marker at the specified row and specified column          
      *                                                                      
@@ -110,9 +124,11 @@ public class Board{
 	for(row = size - 1; row > -1 && board[row][col].equals(" "); row--);
 	if (row >= 0)
 	    {
+		String marker = board[row][col];
 		board[row][col] = " ";
 		emptyTilesCount++;
 		emptySpots[col]--;
+		boardScore -= ((marker.equals("X")) ? 1 : -1) * boardValues[row][col];
 	    }
     }
 
@@ -137,7 +153,7 @@ public class Board{
                     }
             }                                                          
         return "";
-    }     
+    }
 
     /**                                                                     
      * Check if the board has reached a game over state given specific row and column
@@ -207,7 +223,7 @@ public class Board{
 	    }
 	return marker;
     }
-
+    
     public String toString()
     {
 	String header = "Welcome to Connect Four by Team BotForTheWin!\n\nIn this version of Connect Four, "
@@ -215,6 +231,7 @@ public class Board{
 	    + "corresponding column number which are conveniently displayed on both the top and bottom of the"
 	    + "\nboard.  The most recent move would be colored green.  Your marker is a red 'X' while the "
 	    + "bot's marker is a blue 'O'.\n\nGood luck and enjoy!\n\n";
+	
 	String ans = "\033[2J\033[0;0H" + header + " 1 2 3 4 5 6\n|";
 	for(int i = size - 1; i >= 0; i--)
 	    {
