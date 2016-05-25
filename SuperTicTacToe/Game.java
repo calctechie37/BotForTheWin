@@ -29,19 +29,49 @@ public class Game{
 	return false;
     }
 
+    public String getUserInput(String[] possibleInputs)
+    {
+        System.out.println("Your turn!");
+        Scanner s = new Scanner(System.in);
+
+        String ret = "";
+        if (s.hasNext())
+            {
+                ret = s.next();
+                if (ret.equals("q"))
+                    {
+                        System.out.println("Player forfeits.  Bot wins!");
+                        return "q";
+                    }
+                for(int i = 0; i < possibleInputs.length; i++)
+                    {
+                        if(ret.equals(possibleInputs[i]))
+                            {
+                                return ret;
+                            }
+                    }
+                System.out.println("Not a valid input, fool!");
+                return getUserInput(possibleInputs);
+            }
+        return "";
+    }
+
     public String toString()
     {
-	String board = "";
+	String board = "\n";
 	try{
 	    BufferedReader boardtxt = new BufferedReader(new FileReader("board.txt"));
+	    int k=0;
 	    for(int i = 0;i < 17;i++)
 		{
 		    String line = boardtxt.readLine();
 		    for(int j=0;j<line.length();j++)
 			{
-			    if(j%2==0&&i%2==0)
+			    // System.out.println(k);
+			    if((j-1)%4==0&&i%2==0)
 				{
-				    board+=pos[j/2];
+				    board+=pos[k];
+				    k++;
 				}
 			    else
 				{
@@ -64,5 +94,13 @@ public class Game{
     {
 	Game test = new Game();
 	System.out.println(test);
+	for(int i=0;i<9;i++)
+	    {
+		for(int j=0;j<9;j++)
+		    {
+			test.add(i,j,"X");
+		    }
+	    }
+        System.out.println(test);
     }
 }
