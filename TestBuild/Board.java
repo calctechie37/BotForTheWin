@@ -8,6 +8,12 @@ public class Board{
     private int emptyTilesCount = size * size;
     private IntegerPair lastMove;
     private boolean debug = false;
+    private int[][] boardValues = {{3, 4, 7, 7, 4, 3},
+				   {4, 6, 10, 10, 6, 4},
+				   {5, 8, 13, 13, 8, 5}, 
+				   {5, 8, 13, 13, 8, 5},
+				   {4, 6, 10, 10, 6, 4},
+				   {3, 4, 7, 7, 4, 3}};
 
     public Board()
     {
@@ -99,11 +105,15 @@ public class Board{
      **/
     public void remove(int row, int col)
     {
-	board[row][col] = " ";
-	emptyTilesCount++;
-	emptySpots[col]--;
+	if (!board[row][col].equals(" "))
+	    {
+		String marker = board[row][col];
+		board[row][col] = " ";
+		emptyTilesCount++;
+		emptySpots[col]--;
+	    }
     }
-
+	
     /**                                                                     
      * Remove the marker at the specified row and specified column          
      *                                                                      
@@ -115,6 +125,7 @@ public class Board{
 	for(row = size - 1; row > -1 && board[row][col].equals(" "); row--);
 	if (row >= 0)
 	    {
+		String marker = board[row][col];
 		board[row][col] = " ";
 		emptyTilesCount++;
 		emptySpots[col]--;
@@ -142,7 +153,7 @@ public class Board{
                     }
             }                                                          
         return "";
-    }     
+    }
 
     /**                                                                     
      * Check if the board has reached a game over state given specific row and column

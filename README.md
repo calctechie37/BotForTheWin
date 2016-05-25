@@ -14,6 +14,11 @@ We plan to start out with Connect Four. After we complete a basic version of Con
 
 ##<b>Development Log</b>
 
+<b>5/24/16: Version 0.55</b>
+<br>
+Patrick: Made a small optimization that speeded up the bot by another 35 seconds with a slight slowdown in generating the first move.
+<br>
+
 <b>5/23/16: Version 0.51</b>
 <br>
 Patrick: Made a couple of optimization to speed the bot up further.  Also improved the user interface: 'X' are colored red, 'O' are colored blue, the most recent move is colored green, the terminal is cleared each time the board is updated, markings are displayed on both the top of the board and bottom of the board to help distinguish the columns, and a brief introduction is added.
