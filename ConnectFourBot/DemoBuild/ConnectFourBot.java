@@ -9,6 +9,7 @@ public class ConnectFourBot
     private int turn = 1;
     private int size;
     private int searchDepth = 11;
+    private boolean easyDifficulty = false;
     private String[] markers = {"X", "O"};
     private int[] lineWeights = {0, 10, 100};
 
@@ -68,7 +69,7 @@ public class ConnectFourBot
 	    {
 		if (board.getEmptyTilesCount() < (size * size - 10))
 		    {
-			searchDepth = 25;
+			searchDepth = easyDifficulty ? 15 : 25;
 		    }
 	    }
 	depth++;
