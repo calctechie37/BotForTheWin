@@ -31,7 +31,7 @@ public class Game{
 
     public boolean remove(int outer,int inner)
     {
-	pos[outer*9+inner]=" ";
+	pos[(outer/3)*27+(inner/3)*9+(inner%3)+(outer%3)*3]=" ";
 	return true;
     }
 

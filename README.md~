@@ -14,15 +14,9 @@ We plan to start out with Connect Four. After we complete a basic version of Con
 
 ##<b>Development Log</b>
 
-<b>5/25/16: Version 0.6</b>
-<br>
-Charles: Got the adding to board to work and user input.
-<br>
-
 <b>5/24/16: Version 0.55</b>
 <br>
 Patrick: Made a small optimization that speeded up the bot by another 35 seconds with a slight slowdown in generating the first move.
-Charles: Started working on the Super TicTacToe game. Created the board in a text file and the game.
 <br>
 
 <b>5/23/16: Version 0.51</b>
