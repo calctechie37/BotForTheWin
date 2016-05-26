@@ -102,6 +102,7 @@ public class Game{
 	Game test = new Game();
 	System.out.println(test);
 	
+	System.out.println("You start!");
 	int outer,inner;
 	System.out.println("Select Outer");	
 	outer = Integer.parseInt(test.getUserInput(possibleInputs));
@@ -118,6 +119,16 @@ public class Game{
 		    {
 			System.out.println(i+" "+j);
 			test.add(i,j,"X");
+			System.out.println(test);
+		    }
+	    }
+
+	for(int i=0;i<9;i++)
+	    {
+		for(int j=0;j<9;j++)
+		    {
+			System.out.println(i+" "+j);
+			test.remove(i,j);
 			System.out.println(test);
 		    }
 	    }

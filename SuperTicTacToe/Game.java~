@@ -31,7 +31,7 @@ public class Game{
 
     public boolean remove(int outer,int inner)
     {
-	pos[outer*9+inner]=" ";
+	pos[(outer/3)*27+(inner/3)*9+(inner%3)+(outer%3)*3]=" ";
 	return true;
     }
 
@@ -101,17 +101,17 @@ public class Game{
 	String[] possibleInputs = {"0","1","2","3","4","5","6","7","8","9"};
 	Game test = new Game();
 	System.out.println(test);
-	
+	/*
 	int outer,inner;
 	System.out.println("Select Outer");	
 	outer = Integer.parseInt(test.getUserInput(possibleInputs));
 	System.out.println("Select Inner");	
 	inner = Integer.parseInt(test.getUserInput(possibleInputs));
 	test.add(outer,inner,"X");
-	
+	*/
 	
 	//test.add(1,4,"X");
-	/*
+	
 	for(int i=0;i<9;i++)
 	    {
 		for(int j=0;j<9;j++)
@@ -121,7 +121,17 @@ public class Game{
 			System.out.println(test);
 		    }
 	    }
-	*/
+
+	for(int i=0;i<9;i++)
+	    {
+		for(int j=0;j<9;j++)
+		    {
+			System.out.println(i+" "+j);
+			test.remove(i,j);
+			System.out.println(test);
+		    }
+	    }
+	
 	System.out.println(test);
 	
 	
