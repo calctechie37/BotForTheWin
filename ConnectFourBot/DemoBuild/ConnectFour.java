@@ -67,7 +67,8 @@ public class ConnectFour
 	    {
 		if (turn == 1)
 		    {
-			System.out.println("It is the Bot's turn!");
+			System.out.println("It is the Bot's turn!\n");
+			System.out.println("The Bot is thinking...");
 			getBestMove();
 			turn = 1 - turn;
 		    }

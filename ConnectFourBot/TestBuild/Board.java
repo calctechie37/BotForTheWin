@@ -138,19 +138,20 @@ public class Board{
      * @return an empty string when the game is not over                    
      **/
     public String checkBoard()
-    {                                              
+    {
+	String result = "";
         for(int i = 0; i < height; i++)
             {                                                               
                 for(int j = 0; j < width; j++)
                     {
-                        String result = checkBoard(i, j);
-                        if (result.length() > 0)
+                        result = checkBoard(i, j);
+                        if (result.length() == 1)
                             {
 				return result;
                             }
                     }
             }                                                          
-        return "";
+        return result;
     }
 
     /**                                                                     
@@ -224,13 +225,14 @@ public class Board{
     
     public String toString()
     {
+	String numString = "";
+	for(int i = 0; i < width; i++, numString += " " + i);
 	String header = "Welcome to Connect Four by Team BotForTheWin!\n\nIn this version of Connect Four, "
 	    + "you will be playing against a bot.  Choose the column to drop the marker in by\nentering the "
 	    + "corresponding column number which are conveniently displayed on both the top and bottom of the"
 	    + "\nboard.  The most recent move would be colored green.  Your marker is a red 'X' while the "
 	    + "bot's marker is a blue 'O'.\n\nGood luck and enjoy!\n\n";
-	
-	String ans = "\033[2J\033[0;0H" + header + " 1 2 3 4 5 6 7\n|";
+	String ans = "\033[2J\033[0;0H" + header + numString + "\n|";
 	for(int i = height - 1; i >= 0; i--)
 	    {
 		for(int j = 0; j < width; j++)
@@ -244,7 +246,7 @@ public class Board{
 			ans += "|";
 		    }
 	    }
-	ans += " 1 2 3 4 5 6 7";
+	ans += numString;
 	return ans;
     }
 }

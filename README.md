@@ -11,18 +11,33 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
       $ javac Game.java
       $ java Game
       
+##<b>Development Log (Super TicTacToe)</b>
 
-##<b>Development Log</b>
-
-<b>5/25/16: Version 0.6</b>
+<b>5/25/16: Version 0.2</b>
 <br>
 Charles: Got the adding to board to work and user input.
+<br>
+
+<b>5/24/16: Version 0.1</b>
+<br>
+Charles: Started working on the Super TicTacToe game. Created the board in a text file and the game.
+<br>
+
+##<b>Development Log (Connect Four)</b>
+
+<b>5/27/16: Version 0.61</b>
+<br>
+Patrick: Tweaked the speed of the bot some more base on players' inputs.  Also, modified the user interface to let the player know that the bot is thinking on its turn, which also makes it easier to see when the turn has switched.  Modified the board class to make it even more flexible for future board size changes.
+<br>
+
+<b>5/26/16: Version 0.6</b>
+<br>
+Patrick: Modified the Connect Four project to use a rectangular board of 6x7, future modification of board sizes will be a lot easier.  Also, tweaked the Connect Four bot to balance the speed a bit due to larger search depth.
 <br>
 
 <b>5/24/16: Version 0.55</b>
 <br>
 Patrick: Made a small optimization that speeded up the bot by another 35 seconds with a slight slowdown in generating the first move.
-Charles: Started working on the Super TicTacToe game. Created the board in a text file and the game.
 <br>
 
 <b>5/23/16: Version 0.51</b>
