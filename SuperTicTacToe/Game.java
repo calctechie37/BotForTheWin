@@ -98,16 +98,16 @@ public class Game{
     
     public static void main(String[]args)
     {
-	String[] possibleInputs = {"0","1","2","3","4","5","6","7","8","9"};
+	String[] possibleInputs = {"1","2","3","4","5","6","7","8","9"};
 	Game test = new Game();
 	System.out.println(test);
 	
 	System.out.println("You start!");
 	int outer,inner;
 	System.out.println("Select Outer");	
-	outer = Integer.parseInt(test.getUserInput(possibleInputs));
+	outer = Integer.parseInt(test.getUserInput(possibleInputs))-1;
 	System.out.println("Select Inner");	
-	inner = Integer.parseInt(test.getUserInput(possibleInputs));
+	inner = Integer.parseInt(test.getUserInput(possibleInputs))-1;
 	test.add(outer,inner,"X");
 	
 	
