@@ -5,7 +5,8 @@ public class ConnectFour
     
     private Board board;
     private ConnectFourBot AI;
-    private final int size;
+    private final int height;
+    private final int width;
     private int turn = 1;
     private String[] markers = {"X", "O"};
 
@@ -13,7 +14,8 @@ public class ConnectFour
     {
 	board = new Board();
 	AI = new ConnectFourBot();
-	this.size = board.getSize();
+	height = board.getHeight();
+	width = board.getWidth();
     }
 
     public ConnectFour(int turn)
@@ -57,7 +59,7 @@ public class ConnectFour
     
     public void run()
     {
-	String[] possibleInputs = {"1", "2", "3", "4", "5", "6"};
+	String[] possibleInputs = {"1", "2", "3", "4", "5", "6", "7"};
 	String input = "";
 	String winner = "";
 	System.out.println(board);
@@ -104,9 +106,9 @@ public class ConnectFour
     public String toString()
     {
 	String ans = "|";
-        for(int i = size - 1; i >= 0; i--)
+        for(int i = height - 1; i >= 0; i--)
             {
-                for(int j = 0; j < size; j++)
+                for(int j = 0; j < width; j++)
                     {
                         ans += board.getItem(i, j);
                         ans += "|";

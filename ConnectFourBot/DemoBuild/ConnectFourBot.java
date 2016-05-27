@@ -7,7 +7,8 @@ public class ConnectFourBot
     private IntegerPair lastMove;
     private IntegerPair compMove;
     private int turn = 1;
-    private int size;
+    private int height;
+    private int width;
     private int searchDepth = 11;
     private boolean easyDifficulty = false;
     private String[] markers = {"X", "O"};
@@ -25,7 +26,8 @@ public class ConnectFourBot
     public IntegerPair getBestMove(Board board)
     {
 	this.board = board;
-	size = board.getSize();
+	height = board.getHeight();
+	width = board.getWidth();
 	int score = minimax(turn, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	return compMove;
     }
@@ -34,16 +36,16 @@ public class ConnectFourBot
     {
 	ArrayList<IntegerPair> possibleMoves = new ArrayList<IntegerPair>();
 	int[] emptySpots = board.getEmptySpots();
-	int i = size / 2;
+	int i = width / 2;
 	int j = i--;
-	while (i > -1 || j < size)
+	while (i > -1 || j < width)
 	    {
-		if (i > -1 && emptySpots[i] < size)
+		if (i > -1 && emptySpots[i] < height)
 		    {
 			IntegerPair move = new IntegerPair(emptySpots[i], i);
 			possibleMoves.add(move);
 		    }
-		if (j < size && emptySpots[j] < size)
+		if (j < width && emptySpots[j] < height)
 		    {
 			IntegerPair move = new IntegerPair(emptySpots[j], j);
 			possibleMoves.add(move);
@@ -67,7 +69,7 @@ public class ConnectFourBot
 	    }
 	else
 	    {
-		if (board.getEmptyTilesCount() < (size * size - 10))
+		if (board.getEmptyTilesCount() < (height * width - 14))
 		    {
 			searchDepth = easyDifficulty ? 15 : 25;
 		    }
@@ -128,7 +130,7 @@ public class ConnectFourBot
 
     private boolean sameMarker(int row, int col, String marker)
     {
-	return row > -1 && col > -1 && row < size && col < size && (board.getItem(row, col)).equals(marker);
+	return row > -1 && col > -1 && row < height && col < width && (board.getItem(row, col)).equals(marker);
     }
 
     private int getLength(IntegerPair position, IntegerPair directions, String marker, boolean[][] visited, int count)
@@ -177,10 +179,10 @@ public class ConnectFourBot
     {
 	int total = 0;
         int[][] directions = {{1,1,0,-1}, {0,1,1,1}};
-	boolean[][] checked = new boolean[size][size];
-	for(int row = 0; row < size; ++row)
+	boolean[][] checked = new boolean[height][width];
+	for(int row = 0; row < height; ++row)
             {
-                for(int col = 0; col < size; ++col)
+                for(int col = 0; col < width; ++col)
                     {
                         if (checked[row][col])
                             {

@@ -2,7 +2,7 @@
 
 Current Goal
 <br>
-We plan to start out with Connect Four. After we complete a basic version of Connect Four, we plan to reevaulate our position and either move on to Chess or expand on our version of Connect Four.  This will allow us to start with something that is pretty doable and then try something more complex knowing that we can always fall back on to our original project and expand it should things go downhill.
+We plan to optimize the Connect Four Bot some more.  After all, Charles is planning to work on SuperTicTacToe and Patrick is considering doing an Othello bot.
 
 ##<b>To Play Connect Four</b>
 
