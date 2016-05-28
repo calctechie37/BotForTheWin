@@ -4,31 +4,31 @@ public class Board{
     
     private String[][] board;
     private int[] emptySpots;
-    private final int size = 6;
-    private int emptyTilesCount = size * size;
+    private final int height = 6;
+    private final int width = 7;
+    private int emptyTilesCount = height * width;
     private IntegerPair lastMove;
     private boolean debug = false;
-    private int[][] boardValues = {{3, 4, 7, 7, 4, 3},
-				   {4, 6, 10, 10, 6, 4},
-				   {5, 8, 13, 13, 8, 5}, 
-				   {5, 8, 13, 13, 8, 5},
-				   {4, 6, 10, 10, 6, 4},
-				   {3, 4, 7, 7, 4, 3}};
 
     public Board()
     {
-	board = new String[size][size];
-	emptySpots = new int[size];
-	for(int i = 0; i < size; i++)
+	board = new String[height][width];
+	emptySpots = new int[width];
+	for(int i = 0; i < height; i++)
 	    {
-		for(int j = 0; j < size; board[i][j] = " ", j++);
+		for(int j = 0; j < width; board[i][j] = " ", j++);
 	    }
-	for(int j = 0; j < size; emptySpots[j] = 0, j++);
+	for(int j = 0; j < width; emptySpots[j] = 0, j++);
     }
 
-    public int getSize()
+    public int getHeight()
     {
-	return size;
+	return height;
+    }
+
+    public int getWidth()
+    {
+	return width;
     }
 
     public boolean inDebugMode()
@@ -82,8 +82,8 @@ public class Board{
     public boolean add(int col, String marker)
     {
 	int row;
-	for(row = 0; row < size && !(board[row][col].equals(" ")); row++);
-	if (row >= size)
+	for(row = 0; row < height && !(board[row][col].equals(" ")); row++);
+	if (row >= height)
 	    {
 		return false;
 	    }
@@ -107,7 +107,6 @@ public class Board{
     {
 	if (!board[row][col].equals(" "))
 	    {
-		String marker = board[row][col];
 		board[row][col] = " ";
 		emptyTilesCount++;
 		emptySpots[col]--;
@@ -122,10 +121,9 @@ public class Board{
     public void remove(int col)
     {
 	int row;
-	for(row = size - 1; row > -1 && board[row][col].equals(" "); row--);
+	for(row = height - 1; row > -1 && board[row][col].equals(" "); row--);
 	if (row >= 0)
 	    {
-		String marker = board[row][col];
 		board[row][col] = " ";
 		emptyTilesCount++;
 		emptySpots[col]--;
@@ -140,19 +138,20 @@ public class Board{
      * @return an empty string when the game is not over                    
      **/
     public String checkBoard()
-    {                                              
-        for(int i = 0; i < size; i++)
+    {
+	String result = "";
+        for(int i = 0; i < height; i++)
             {                                                               
-                for(int j = 0; j < size; j++)
+                for(int j = 0; j < width; j++)
                     {
-                        String result = checkBoard(i, j);
-                        if (result.length() > 0)
+                        result = checkBoard(i, j);
+                        if (result.length() == 1)
                             {
 				return result;
                             }
                     }
             }                                                          
-        return "";
+        return result;
     }
 
     /**                                                                     
@@ -166,20 +165,20 @@ public class Board{
      **/
     public String checkBoard(int row, int col)
     {
-        if (board[row][col].equals(" ") || (emptyTilesCount > (size * size - 7) && !debug))
+        if (board[row][col].equals(" ") || (emptyTilesCount > (height * width - 7) && !debug))
 	    {
 		return "";
 	    }
 	String marker = board[row][col];
 	int count = 0;
-	for(int j = row; j < size && board[j][col].equals(marker); j++, count++);
+	for(int j = row; j < height && board[j][col].equals(marker); j++, count++);
 	for(int j = row - 1; j > -1 && board[j][col].equals(marker); j--, count++);
 	if (count > 3)
 	    {
 		return marker;
 	    }
 	count = 0;
-	for(int i = col; i < size && board[row][i].equals(marker); i++, count++);
+	for(int i = col; i < width && board[row][i].equals(marker); i++, count++);
 	for(int i = col - 1; i > -1 && board[row][i].equals(marker); i--, count++);
 	if (count > 3)
 	    {
@@ -187,7 +186,7 @@ public class Board{
 	    }
 	count = 0;
 	int j = col;
-	for(int i = row;i < size && j < size && board[i][j].equals(marker); i++, j++, count++);
+	for(int i = row; i < height && j < width && board[i][j].equals(marker); i++, j++, count++);
 	j = col - 1;
 	for(int i = row - 1; i > -1 && j > -1 && board[i][j].equals(marker); i--, j--, count++);
 	if (count > 3)
@@ -196,9 +195,9 @@ public class Board{
 	    }
 	count = 0;
 	j = col;
-	for(int i = row; i < size && j > -1 && board[i][j].equals(marker); i++, j--, count++);
+	for(int i = row; i < height && j > -1 && board[i][j].equals(marker); i++, j--, count++);
 	j = col + 1;
-	for(int i = row - 1; i > -1 && j < size && board[i][j].equals(marker); i--, j++, count++);
+	for(int i = row - 1; i > -1 && j < width && board[i][j].equals(marker); i--, j++, count++);
 	if (count > 3)
 	    {
 		return marker;
@@ -226,16 +225,17 @@ public class Board{
     
     public String toString()
     {
+	String numString = "";
+	for(int i = 0; i < width; i++, numString += " " + i);
 	String header = "Welcome to Connect Four by Team BotForTheWin!\n\nIn this version of Connect Four, "
 	    + "you will be playing against a bot.  Choose the column to drop the marker in by\nentering the "
 	    + "corresponding column number which are conveniently displayed on both the top and bottom of the"
 	    + "\nboard.  The most recent move would be colored green.  Your marker is a red 'X' while the "
 	    + "bot's marker is a blue 'O'.\n\nGood luck and enjoy!\n\n";
-	
-	String ans = "\033[2J\033[0;0H" + header + " 1 2 3 4 5 6\n|";
-	for(int i = size - 1; i >= 0; i--)
+	String ans = "\033[2J\033[0;0H" + header + numString + "\n|";
+	for(int i = height - 1; i >= 0; i--)
 	    {
-		for(int j = 0; j < size; j++)
+		for(int j = 0; j < width; j++)
 		    {
 			ans += color(i, j);
 			ans += "|";
@@ -246,7 +246,7 @@ public class Board{
 			ans += "|";
 		    }
 	    }
-	ans += " 1 2 3 4 5 6";
+	ans += numString;
 	return ans;
     }
 }
