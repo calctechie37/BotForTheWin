@@ -13,11 +13,6 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
       
 ##<b>Development Log (Super TicTacToe)</b>
 
-<b>5/26/16 - 5/27/16</b>
-<br>
-Charles: Fixed bugs in adding to board. Added checks for winning an inner board or the whole board.
-<br>
-
 <b>5/25/16: Version 0.2</b>
 <br>
 Charles: Got the adding to board to work and user input.
