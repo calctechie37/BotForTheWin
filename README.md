@@ -10,7 +10,18 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
       $ cd BotForTheWin/DemoBuild/
       $ javac Game.java
       $ java Game
-      
+
+##<b>Development Log (Othello)</b>
+<b>5/31/16</b>
+<br>
+Patrick: Modify the coding style for the board and main class.  Wrote the foundation for the othello bot.
+<br>
+
+<b>5/27/16 - 5/28/16</b>
+<br>
+Patrick: Wrote the board class and a function to test the board
+<br>
+
 ##<b>Development Log (Super TicTacToe)</b>
 
 <b>5/26/16 - 5/27/16</b>
