@@ -1,7 +1,6 @@
-public class Main
-{
-    public static void main(String[] args)
-    {
+public class Main{
+
+    public static void main(String[] args){
 	Board board = new Board();
 	System.out.println(board);
 	board.add(3, 3, 1);
@@ -13,4 +12,5 @@ public class Main
 	board.remove(9, 9);
 	System.out.println(board);
     }
+
 }
