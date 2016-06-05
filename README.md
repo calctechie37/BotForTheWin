@@ -12,6 +12,13 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
       $ java Game
 
 ##<b>Development Log (Othello)</b>
+<b>6/5/16</b>
+<br>
+Development is progressing again after a week (or so) of inactivity...
+<br>
+Patrick: Added functions in the board class to add and remove pieces.  Also wrote a testing class to make sure the new functions work as desired.
+<br>
+
 <b>5/31/16</b>
 <br>
 Patrick: Modify the coding style for the board and main class.  Wrote the foundation for the othello bot.
