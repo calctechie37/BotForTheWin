@@ -8,8 +8,13 @@ public class Game{
     String[] pos;
     String[][] wins;
     ArrayList<Integer> noPut;
+
+    double innervalue;
+    double outervalue;
     public Game()
     {
+	innervalue=0;
+	outervalue=0;
 	//	board = "";
 	noPut = new ArrayList<Integer>();
 	pos = new String[81];
@@ -26,6 +31,13 @@ public class Game{
 		    }
 	    }
 	//board = toString();
+	try{
+	    PrintWriter weightsout = new PrintWriter(new BufferedWriter(new FileWriter("Pweights.txt")));
+	    weightsout.print(0.5+" "+0.5);
+	    weightsout.close();
+	}
+	catch(Exception e)
+	    {System.out.println(e);}
     }
 
     public boolean add(int outer,int inner,String marker)
@@ -34,16 +46,23 @@ public class Game{
 	if(pos[(outer/3)*27+(inner/3)*9+(inner%3)+(outer%3)*3]==" ")
 	    {
 		pos[(outer/3)*27+(inner/3)*9+(inner%3)+(outer%3)*3]=marker;
-		//System.out.println(toString());
 		if(checkWinInner(outer,marker))
 		    {
-			for(int i=0;i<9;i++)
-			    {
-				pos[(outer/3)*27+(i/3)*9+(i%3)+(outer%3)*3]=marker;
-			    }
-			
-		
+			wins[outer/3][outer%3]=marker;
 		    }
+		//System.out.println(toString());
+
+			/*
+			if(marker=="X")
+			    {
+				System.out.println("Player wins inner board " + (inner+1));
+			    }
+			if(marker=="O")
+			    {
+				System.out.println("AI wins inner board " + (inner+1));
+			    }
+			*/
+		//		feedback(checkWinInner(outer,"X"));
 		return true;
 	    }
 	return false;
@@ -52,7 +71,7 @@ public class Game{
     public boolean remove(int outer,int inner)
     {
 	pos[(outer/3)*27+(inner/3)*9+(inner%3)+(outer%3)*3]=" ";
-	//System.out.println("Removed " + outer + " " + inner);
+	//	System.out.println("Removed " + outer + " " + inner);
 	return true;
     }
 
@@ -185,14 +204,40 @@ public class Game{
       The perceptrons will test whether the current inner board can be solved when putting a marker down at a certain place 
       and if the whole board will be solved. The feedback function will change the weights based on whether the player (you) wiins a game or an inner board.
      */
-    public void feedback()
+    public void feedback(boolean playerWin)
     {
+	//	System.out.println("Feedbacking");
 	try
 	    {
+		BufferedReader in = new BufferedReader(new FileReader("Pweights.txt"));
+		//		System.out.println("lol");		
+		String first = in.readLine();
+		double innerWeight = Double.parseDouble(first.split(" ")[0]);
+		double outerWeight = Double.parseDouble(first.split(" ")[1]);
+		//System.out.println("LOL");
 		PrintWriter weightsout = new PrintWriter(new BufferedWriter(new FileWriter("Pweights.txt")));
-		weightsout.close();
-
-		
+		//		weightsout.close();
+		//		System.out.println("LOL LMAO");
+		if(playerWin)
+		    {
+			if(innervalue>outervalue)
+			    {
+				innerWeight -= 0.10;
+				outerWeight += 0.05;
+			    }
+			else if(innervalue<outervalue)
+			    {
+				innerWeight += 0.05;
+				outerWeight -= 0.10;
+			    }
+		    }
+		else
+		    {
+			innerWeight += 0.05;
+			outerWeight += 0.05;
+		    }
+		weightsout.print(innerWeight+" "+outerWeight);
+		weightsout.close();	      
 	    }
 	catch(Exception e)
 	    {System.out.println(e);}
@@ -209,53 +254,14 @@ public class Game{
 	    String first = in.readLine();
 	    double innerWeight = Double.parseDouble(first.split(" ")[0]);
 	    double outerWeight = Double.parseDouble(first.split(" ")[1]);
+	    innervalue=0;
+	    outervalue=0;
+	    double maxSum=0;
+	    int maxSumPos=0;
+	    double bias = 0.5*0.5 + 0.5*0.5;	    
 	    for(int i=0;i<9;i++)
 		{
-		    double innervalue = 0;
-		    double outervalue = 0;
-		    /*
-		    if(add(outer,i,"O"))
-			{
-			    if((innerWeight*1 + outerWeight*1)>=1)
-				{
-				    System.out.println("AI put down marker at " + (outer+1) + " " + (i+1));
-				    return i;			    
-				}
-
-			    if(!checkWinInner(outer,"0"))
-				{
-				    remove(outer,i);
-				}
-			    else
-				{
-				    if(checkWin()!="")
-					{
-					    if((innerWeight*1 + outerWeight*1)<1)
-						{
-						    remove(outer,i);
-						}
-					    else
-						{
-						    System.out.println("AI put down marker at" + (outer+1) + " " + (i+1));
-						    return i;}
-					}
-				    else
-					{
-					    if((innerWeight*1 + outerWeight*1)<1)
-						{
-						    remove(outer,i);
-						}
-					    else
-						{
-						    System.out.println("AI put down marker at" + (outer+1) + " " +(i+1));
-						    return i;
-						}
-					}
-				}
-			}
-		    */
 		    // System.out.println(toString());
-		    double bias = 0.5*0.5 + 0.5*0.5;
 		    if(pos[(outer/3)*27+(i/3)*9+(i%3)+(outer%3)*3] == " ")
 			{
 		    //		    System.out.println(outer+" "+i);
@@ -300,22 +306,47 @@ public class Game{
 				{
 				    remove(outer,i);
 				}
-			    
+			    /*
 			    if((outervalue*outerWeight + innervalue*innerWeight)>=bias)
 				{
 				    add(outer,i,"O");
 				    System.out.println("AI put down marker at " + (outer+1) + " " + (i+1));
 				    return i;
 				}
+			    */
+			    if((outervalue*outerWeight + innervalue*innerWeight)>maxSum)
+				{
+				    maxSumPos=i;
+				    maxSum = outervalue*outerWeight + innervalue*innerWeight;
+				}
 			}
 		    
 		}
-	    
+	    if(maxSum>=bias)
+		{
+		    add(outer,maxSumPos,"O");
+		    if(checkWinInner(outer,"O"))
+			{
+			    for(int i=0;i<9;i++)
+				{
+				    pos[(outer/3)*27+(i/3)*9+(i%3)+(outer%3)*3]="O";
+				}
+			}
+		    System.out.println("AI put down marker at " + (outer+1) + " " + (maxSumPos+1));
+		    return maxSumPos;	   
+		}
 	    int n = (int)(Math.random()*9);
 	    while(!add(outer,n,"O"))
 		{
 		    n = (int)(Math.random()*9);
 		}
+	    if(checkWinInner(outer,"O"))
+		{
+		    for(int i=0;i<9;i++)
+			{
+			    pos[(outer/3)*27+(i/3)*9+(i%3)+(outer%3)*3]="O";
+			}
+		}	    
 	    System.out.println("AI put down marker at " + (outer+1) + " " + (n+1));
 	    return n;
 	}
@@ -328,12 +359,15 @@ public class Game{
     {
 	for(int i=0;i<9;i++)
 	    {
-		if(add(outer,i,"X") && checkWinInner(outer,"X"))
-		   {
-		       remove(outer,i);
-		       return "X";
-		   }
-		remove(outer,i);
+		if(pos[(outer/3)*27+(i/3)*9+(i%3)+(outer%3)*3]==" ")
+		    {
+			if(add(outer,i,"X") && checkWinInner(outer,"X"))
+			    {
+				remove(outer,i);
+				return "X";
+			    }
+			remove(outer,i);
+		    }
 	    }
 	return "";
     }
@@ -362,25 +396,61 @@ public class Game{
 		//		System.out.println(outer);
 		outer = test.AI(inner);
 		System.out.println(test);	    		
+		if(test.checkWin()!="")
+		    {
+			break;
+		    }
 		if(test.checkWinInner(outer,"X") || test.checkWinInner(outer,"O"))
 		    {
+			
 			System.out.println("Select Outer");
 			outer = Integer.parseInt(test.getUserInput(possibleInputs))-1;
 
 			System.out.println("Select Inner");
 			inner = Integer.parseInt(test.getUserInput(possibleInputs))-1;
 
-			test.add(outer,inner,"X");
+			while(!test.add(outer,inner,"X"))
+			    {
+				System.out.println("Invalid input, fool!");
+
+				System.out.println("Select Outer");
+				outer = Integer.parseInt(test.getUserInput(possibleInputs))-1;
+
+				System.out.println("Select Inner");
+				inner = Integer.parseInt(test.getUserInput(possibleInputs))-1;
+			    }
+			if(test.checkWinInner(outer,"X"))
+			    {
+				for(int i=0;i<9;i++)
+				{
+				    test.pos[(outer/3)*27+(i/3)*9+(i%3)+(outer%3)*3]="X";
+				}
+			}			
 			System.out.println(test);	    
 		    }
 		else
 		    {
 			System.out.println("Your turn! Outer: " + (outer+1)+ " Inner: "); 
 			inner = Integer.parseInt(test.getUserInput(possibleInputs))-1;
-			
+			while(!test.add(outer,inner,"X"))
+			    {
+				System.out.println("Invalid input, fool!");
+
+				System.out.println("Select Inner");
+				inner = Integer.parseInt(test.getUserInput(possibleInputs))-1;
+			    }			
+
 			test.add(outer,inner,"X");
+			if(test.checkWinInner(outer,"X"))
+			    {
+				for(int i=0;i<9;i++)
+				    {
+					test.pos[(outer/3)*27+(i/3)*9+(i%3)+(outer%3)*3]="X";
+				    }
+			    }			
 			System.out.println(test);	    
 		    }
+		test.feedback(test.checkWinInner(outer,"X"));
 	    }
 	
 	if(test.checkWin()=="X")
