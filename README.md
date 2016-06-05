@@ -11,6 +11,14 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
       $ javac Game.java
       $ java Game
 
+##<b>Things to Patch Up...</b>
+<b>Connect Four</b>
+* Modify the instruction to tell the user how to quit ("q")
+<b>Othello</b>
+* Code needed to tell who's turn it is and which color the player is playing as...
+* Bot has not been written
+<b>Super TicTacToe</b>
+
 ##<b>Development Log (Othello)</b>
 <b>6/5/16</b>
 <br>

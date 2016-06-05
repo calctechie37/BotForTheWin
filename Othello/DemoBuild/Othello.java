@@ -26,7 +26,6 @@ public class Othello{
     }
     
     public String getUserInput(String[] possibleInputs){
-	System.out.println("Your turn!");
 	Scanner s = new Scanner(System.in);
 	
 	String ret = "";
@@ -59,11 +58,19 @@ public class Othello{
 		getBestMove();
 		turn *= -1;
 	    }else{
-		input = getUserInput(possibleInputs);
-		if (!input.equals("q")){
-		    int processedInput = Integer.parseInt(input) - 1;
-		    if (board.add(procesedInput, 1)){
+		System.out.println("Your turn!");
+		System.out.print("Enter row: ");
+		userInputRow = getUserInput(possibleInputs);
+		System.out.print("Enter column: ");
+		userInputCol = getuserInput(possibleInputs);
+		if (!userInputRow.equals("q") && !userInputcol.equals("q")){
+		    int processedRow = Integer.parseInt(input) - 1;
+		    int processedCol = Integer.parseInt(input) - 1;
+		    if (board.add(processedRow, processedCol, 1)){
 			turn *= -1;
+		    }else{
+			String userPosition = userInputRow + ", " + userInputCol
+			System.out.println("Sorry, your chosen position: (" + userPosition + ") is not valid!")
 		    }
 		}
 	    }
