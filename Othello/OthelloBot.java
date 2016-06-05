@@ -26,7 +26,7 @@ public class OthelloBot{
     }
 
     private ArrayList<IntegerPair> availableMoves(){
-	
+	return board.getAvailableMoves();
     }
 
     private int minimax(int turncopy, int depth, int alpha, int beta){
