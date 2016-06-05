@@ -15,8 +15,10 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
 <b>Connect Four</b>
 * Modify the instruction to tell the user how to quit ("q")
 <b>Othello</b>
-* Code needed to tell who's turn it is and which color the player is playing as...
-* Bot has not been written
+* A very basic bot has been written, need to start on evaulation function soon
+* Various aesthetics
+* Instruction guide
+* More testing functions to make sure every function is functioning properly
 <b>Super TicTacToe</b>
 
 ##<b>Development Log (Othello)</b>
@@ -24,7 +26,7 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
 <br>
 Development is progressing again after a week (or so) of inactivity...
 <br>
-Patrick: Added functions in the board class to add and remove pieces.  Also wrote a testing class to make sure the new functions work as desired.
+Patrick: Added functions in the board class to add and remove pieces.  Also wrote a testing class to make sure the new functions work as desired.  Made various aesthetics changes, fixed up bugs in the board class that causes the checkBoard function to malfunction, wrote a very basic bot (due to lack of time), fixed up user input system, and roll all the pieces together into a playable game.
 <br>
 
 <b>5/31/16</b>

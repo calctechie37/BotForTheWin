@@ -6,8 +6,11 @@ public class Othello{
     private OthelloBot AI;
     private final int height;
     private final int width;
+    private final int BLACK = 1;
+    private final int WHITE = -1;
     private int turn = 1;
-   
+    private int playerMarker = WHITE;
+
     public Othello(){
 	board = new Board();
 	AI = new OthelloBot();
@@ -18,14 +21,21 @@ public class Othello{
     public Othello(int turn){
 	this();
 	this.turn = turn;
+	AI = new OthelloBot(WHITE);
+	this.playerMarker = BLACK;
     }
 
     public void getBestMove(){
-	IntegerPair compMove = AI.getBestMove(board);
-	board.add(compMove.first(), compMove.second(), 1);
+	//IntegerPair compMove = AI.getBestMove(board);
+	ArrayList<IntegerPair> possibleMoves = board.getAvailableMoves(-playerMarker);
+	if (possibleMoves.size() > 0){
+	    IntegerPair compMove = possibleMoves.get(0);
+	    board.add(compMove.first(), compMove.second(), -playerMarker);
+	}
     }
     
-    public String getUserInput(String[] possibleInputs){
+    public String getUserInput(String message, String[] possibleInputs){
+	System.out.print(message);
 	Scanner s = new Scanner(System.in);
 	
 	String ret = "";
@@ -35,23 +45,27 @@ public class Othello{
 		System.out.println("Player forfeits.  Bot wins!");
 		return "q";
 	    }
+	    if (ret.equals("p")){
+		return "p";
+	    }
 	    for(int i = 0; i < possibleInputs.length; i++){
 		if (ret.equals(possibleInputs[i])){
 		    return ret;
 		}
 	    }
 	    System.out.println("Not a valid input, fool!");
-	    return getUserInput(possibleInputs);
+	    return getUserInput(message, possibleInputs);
 	}
 	return "";
     }
 
     public void run(){
 	String[] possibleInputs = {"1", "2", "3", "4", "5", "6", "7", "8"};
-	String input = "";
+	String userInputRow = "";
+	String userInputCol = "";
 	int winner = 0;
 	System.out.println(board);
-	while (winner == 0 && !input.equals("q")){
+	while (winner == 0 && !userInputRow.equals("q") && !userInputCol.equals("q")){
 	    if (turn == 1){
 		System.out.println("It is the Bot's turn!\n");
 		System.out.println("The Bot is thinking...");
@@ -59,25 +73,35 @@ public class Othello{
 		turn *= -1;
 	    }else{
 		System.out.println("Your turn!");
-		System.out.print("Enter row: ");
-		userInputRow = getUserInput(possibleInputs);
-		System.out.print("Enter column: ");
-		userInputCol = getuserInput(possibleInputs);
-		if (!userInputRow.equals("q") && !userInputcol.equals("q")){
-		    int processedRow = Integer.parseInt(input) - 1;
-		    int processedCol = Integer.parseInt(input) - 1;
-		    if (board.add(processedRow, processedCol, 1)){
+		String message = "Enter row: ";
+		userInputRow = getUserInput(message, possibleInputs);
+		if (!userInputRow.equals("q") && !userInputRow.equals("p")){
+		    message = "Enter column: ";
+		    userInputCol = getUserInput(message, possibleInputs);
+		}
+		if (!userInputRow.equals("q") && !userInputCol.equals("q") &&
+		    !userInputRow.equals("p") && !userInputCol.equals("p")){
+		    int processedRow = Integer.parseInt(userInputRow) - 1;
+		    int processedCol = Integer.parseInt(userInputCol) - 1;
+		    if (board.add(processedRow, processedCol, playerMarker)){
 			turn *= -1;
 		    }else{
-			String userPosition = userInputRow + ", " + userInputCol
-			System.out.println("Sorry, your chosen position: (" + userPosition + ") is not valid!")
+			String userPosition = userInputRow + ", " + userInputCol;
+			System.out.println("Sorry, your chosen position: (" + userPosition + ") is not valid!");
 		    }
+		}
+		if (userInputRow.equals("p") || userInputCol.equals("p")){
+		    turn *= -1;
 		}
 	    }
 	    System.out.println(board);
+	    if (userInputRow.equals("p") || userInputCol.equals("p")){
+		System.out.println("Player pass...");
+	    }
 	    winner = board.checkBoard();
+	    System.out.println(winner);
 	}
-	if (!input.equals("q")){
+	if (!userInputRow.equals("q") && !userInputCol.equals("q")){
 	    if (winner == 1){
 		System.out.println("No Surprise, BotForTheWin!");
 	    }else{

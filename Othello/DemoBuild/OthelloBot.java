@@ -26,13 +26,15 @@ public class OthelloBot{
     }
 
     private ArrayList<IntegerPair> availableMoves(){
-	return board.getAvailableMoves();
+	return board.getAvailableMoves(turn);
     }
 
     private int minimax(int turncopy, int depth, int alpha, int beta){
+	return 0;
     }
     
     private int evaluate(String winner, int depth){
+	return 0;
     }
 
 }

@@ -18,4 +18,13 @@ public class IntegerPair
     {
 	return second;
     }
+    
+    @Override
+    public boolean equals(Object object){
+	boolean isSame = false;
+	if (object != null && object instanceof IntegerPair){
+	    isSame = (this.first() == ((IntegerPair) object).first() && this.second() == ((IntegerPair) object).second());
+	}
+	return isSame;
+    }
 }
