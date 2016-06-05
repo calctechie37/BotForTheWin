@@ -11,7 +11,26 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
       $ javac Game.java
       $ java Game
 
+##<b>Things to Patch Up...</b>
+<b>Connect Four</b>
+ * Modify the instruction to tell the user how to quit ("q")
+
+<b>Othello</b>
+ * A very basic bot has been written, need to start on evaulation function soon
+ * Various aesthetics
+ * Instruction guide
+ * More testing functions to make sure every function is functioning properly
+
+<b>Super TicTacToe</b>
+
 ##<b>Development Log (Othello)</b>
+<b>6/5/16</b>
+<br>
+Development is progressing again after a week (or so) of inactivity...
+<br>
+Patrick: Added functions in the board class to add and remove pieces.  Also wrote a testing class to make sure the new functions work as desired.  Made various aesthetics changes, fixed up bugs in the board class that causes the checkBoard function to malfunction, wrote a very basic bot (due to lack of time), fixed up user input system, and roll all the pieces together into a playable game.
+<br>
+
 <b>5/31/16</b>
 <br>
 Patrick: Modify the coding style for the board and main class.  Wrote the foundation for the othello bot.
