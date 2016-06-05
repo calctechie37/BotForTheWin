@@ -13,12 +13,14 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
 
 ##<b>Things to Patch Up...</b>
 <b>Connect Four</b>
-* Modify the instruction to tell the user how to quit ("q")
+ * Modify the instruction to tell the user how to quit ("q")
+
 <b>Othello</b>
-* A very basic bot has been written, need to start on evaulation function soon
-* Various aesthetics
-* Instruction guide
-* More testing functions to make sure every function is functioning properly
+ * A very basic bot has been written, need to start on evaulation function soon
+ * Various aesthetics
+ * Instruction guide
+ * More testing functions to make sure every function is functioning properly
+
 <b>Super TicTacToe</b>
 
 ##<b>Development Log (Othello)</b>
