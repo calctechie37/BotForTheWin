@@ -8,11 +8,11 @@ public class Board{
     private final int width = 8;
     private int WHITE = -1;
     private int BLACK = 1;
-    private int emptyTilesCount = height * width;
+    private int emptyTilesCount = height * width - 4;
     private IntegerPair lastMove;
     private static final int[] rowOffset = {-1, -1, -1, 0, 0, 1, 1, 1};
     private static final int[] colOffset = {-1, 0, 1, -1, 1, -1, 0, 1};
-    private boolean debug = true;
+    private boolean debug = false;
 
     public Board(){
 	boardChangesTracker = new ArrayList<IntegerPair>();
@@ -93,9 +93,9 @@ public class Board{
      * @return whether the operation was successful or not
      **/
     public boolean add(int row, int col, int marker){
-	boardChangesTracker.clear();
-	lastMove = new IntegerPair(row, col);
 	if (row > -1 && row < height && col > -1 && col < width && isValidPosition(row, col, marker)){
+	    boardChangesTracker.clear();
+	    lastMove = new IntegerPair(row, col);
 	    board[row][col] = marker;
 	    // flip all the pieces as necessary
 	    for (int i = 0; i < 8; ++i) {
@@ -144,7 +144,7 @@ public class Board{
 	    for(IntegerPair Point: boardChangesTracker){
 		board[Point.first()][Point.second()] *= -1;
 	    }
-	    emptyTilesCount--;
+	    emptyTilesCount++;
 	}
     }
     
@@ -155,29 +155,40 @@ public class Board{
      * @return zero when the game is not over
      **/
     public int checkBoard(){
+	/*
 	if (emptyTilesCount > 0){
 	    return 0;
 	}else{
-	    int playerOneCount = 0;
-	    int playerTwoCount = 0;
-	    for(int i = 0; i < height; i++){
-		for(int j = 0; j < width; j++){
-		    if (board[i][j] == BLACK){
-			playerOneCount++;
-		    }else if (board[i][j] == WHITE){
-			playerTwoCount++;
-		    }
+	*/
+	int playerOneCount = 0;
+	int playerTwoCount = 0;
+	for(int i = 0; i < height; i++){
+	    for(int j = 0; j < width; j++){
+		if (board[i][j] == BLACK){
+		    playerOneCount++;
+		}else if (board[i][j] == WHITE){
+		    playerTwoCount++;
+		}
+		if (emptyTilesCount > 0 && playerOneCount > 0 && playerTwoCount > 0){
+		    return 0;
 		}
 	    }
-	    return (playerOneCount > playerTwoCount) ? BLACK : WHITE;
 	}
+	if (playerOneCount == playerTwoCount){
+	    return 0;
+	}
+	return (playerOneCount > playerTwoCount) ? BLACK : WHITE;
     }
 
     private String color(int row, int col){
 	int marker = board[row][col];
+	String piece = (marker == BLACK) ? "O" : "X";
 	if (marker != 0 && lastMove != null && row == lastMove.first() && col == lastMove.second()){
-	    String piece = (marker == BLACK) ? "O" : "X";
 	    return ("\u001B[34m" + piece + "\u001B[0m");
+	}
+	IntegerPair point = new IntegerPair(row, col);
+	if (boardChangesTracker != null && boardChangesTracker.contains(point)){
+	    return ("\u001B[32m" + piece + "\u001B[0m");
 	}
 	if (marker == BLACK){
 	    return ("\u001B[30mO\u001B[0m");
@@ -191,7 +202,7 @@ public class Board{
     public String toString(){
 	String numString = "  ";
 	for(int i = 0; i < width; i++, numString += " " + i);
-	String ans = "\033[2J\033[0;0H" + numString + "\n|";
+	String ans = "\033[2J\033[0;0H" + numString + "\n";
 	if (debug){
 	    ans = numString + "\n";
 	}
