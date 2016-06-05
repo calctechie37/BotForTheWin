@@ -33,6 +33,7 @@ public class ConnectFour
     public String getUserInput(String[] possibleInputs)
     {
 	System.out.println("Your turn!");
+	System.out.print("Choose the column to place your marker: ");
 	Scanner s = new Scanner(System.in);
 	
 	String ret = "";

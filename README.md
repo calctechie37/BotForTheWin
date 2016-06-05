@@ -13,7 +13,6 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
 
 ##<b>Things to Patch Up...</b>
 <b>Connect Four</b>
- * Modify the instruction to tell the user how to quit ("q")
 
 <b>Othello</b>
  * A very basic bot has been written, need to start on evaulation function soon
