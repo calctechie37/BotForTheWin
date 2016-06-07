@@ -104,11 +104,11 @@ public class Game{
 
     public String checkWin()
     {
-	if(wins[0][0]==wins[1][1] && wins[0][0]==wins[2][2] && wins[0][0]!="")
+	if(wins[0][0]==wins[1][1] && wins[0][0]==wins[2][2])
 	    {
 		return wins[0][0];
 	    }
-	if(wins[0][2]==wins[1][1] && wins[0][2]==wins[2][0] && wins[0][2]!="")
+	if(wins[0][2]==wins[1][1] && wins[0][2]==wins[2][0])
 	    {
 		return wins[0][2];
 	    }	
@@ -116,13 +116,13 @@ public class Game{
 	    {
 		if(wins[0][i]==wins[1][i] && wins[0][i]==wins[2][i] && wins[0][i]!="")
 		    {
-			//System.out.println(wins[0][i]);
+			System.out.println(wins[0][i]);
 			return wins[0][i];
 		    }
 	    }
 	for(int i=0;i<3;i++)
 	    {
-		if(wins[i][0]==wins[i][1] && wins[i][0]==wins[i][2] && wins[i][0]!="")
+		if(wins[i][0]==wins[i][1] && wins[i][0]==wins[i][2])
 		    {
 			return wins[i][0];
 		    }
@@ -380,7 +380,7 @@ public class Game{
 	System.out.println(test);
 	    
 	System.out.println("You start!");
-	//       	while(test.checkWin()==""){
+       	while(test.checkWin()==""){
 	    System.out.println(test.wins[0][1]+" "+test.wins[1][1]+" "+test.wins[2][1]);
 	int outer,inner;
 	System.out.println("Select Outer");	
@@ -400,8 +400,8 @@ public class Game{
 	    }
 	
         System.out.println(test);	    
-	//	}
-	
+	}
+	/*
 	while(test.checkWin()=="")     
 	    {
 		
@@ -471,7 +471,7 @@ public class Game{
 		test.feedback(test.checkWinInner(outer,"X"));
 		//System.out.println(test.checkWin());
 	    }
-	
+	*/
 	if(test.checkWin()=="X")
 	    {
 		System.out.println("You won!!");

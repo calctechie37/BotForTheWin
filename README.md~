@@ -11,13 +11,6 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
       $ javac Game.java
       $ java Game
 
-##<b>To Play Super TicTacToe</b>
-
-      $ git clone https://github.com/calctechie37/BotForTheWin.git
-      $ cd BotForTheWin/SuperTicTacToe/
-      $ javac Game.java
-      $ java Game	
-
 ##<b>Things to Patch Up...</b>
 <b>Connect Four</b>
  * Modify the instruction to tell the user how to quit ("q")
@@ -49,10 +42,6 @@ Patrick: Wrote the board class and a function to test the board
 <br>
 
 ##<b>Development Log (Super TicTacToe)</b>
-
-<b>5/28/16 - 6/6/16</b>
-<br>
-Charles: Worked on the AI, and feedback loop for primitive machine learning.
 
 <b>5/26/16 - 5/27/16</b>
 <br>
