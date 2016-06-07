@@ -6,8 +6,8 @@ public class Board{
     private ArrayList<IntegerPair> boardChangesTracker;
     private final int height = 8;
     private final int width = 8;
-    private int WHITE = -1;
-    private int BLACK = 1;
+    private static final int WHITE = -1;
+    private static final int BLACK = 1;
     private int emptyTilesCount = height * width - 4;
     private IntegerPair lastMove;
     private static final int[] rowOffset = {-1, -1, -1, 0, 0, 1, 1, 1};
@@ -39,6 +39,10 @@ public class Board{
 	return emptyTilesCount;
     }
 
+    public ArrayList<IntegerPair> getBoardChangesTracker(){
+	return boardChangesTracker;
+    }
+    
     public int getItem (int row, int col){
 	return board[row][col];
     }
@@ -148,6 +152,17 @@ public class Board{
 	}
     }
     
+    public void remove(int row, int col, IntegerPairArray changesTracker){
+	if (row > -1 && row < height && col > -1 && col < width && board[row][col] != 0){
+	    board[row][col] = 0;
+	    //unflip all necessary pieces
+	    for(IntegerPair Point: changesTracker){
+		board[Point.first()][Point.second()] *= -1;
+	    }
+	    emptyTilesCount++;
+	}
+    }
+
     /**
      * Check who has won
      *

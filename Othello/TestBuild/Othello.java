@@ -32,6 +32,9 @@ public class Othello{
 	    IntegerPair compMove = possibleMoves.get(0);
 	    board.add(compMove.first(), compMove.second(), -playerMarker);
 	}
+	//if (compMove != null){
+	//    board.add(compMove.first(), compMove.second(), -playerMarker);
+	//}
     }
     
     public String getUserInput(String message, String[] possibleInputs){

@@ -1,4 +1,4 @@
-public class BoardAddRemoveTest{
+public class PieceAddRemoveTest{
 
     public static void main(String[] args){
 	Board board = new Board();
