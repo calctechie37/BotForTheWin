@@ -26,15 +26,15 @@ public class Othello{
     }
 
     public void getBestMove(){
-	//IntegerPair compMove = AI.getBestMove(board);
-	ArrayList<IntegerPair> possibleMoves = board.getAvailableMoves(-playerMarker);
-	if (possibleMoves.size() > 0){
-	    IntegerPair compMove = possibleMoves.get(0);
-	    board.add(compMove.first(), compMove.second(), -playerMarker);
-	}
-	//if (compMove != null){
+	IntegerPair compMove = AI.getBestMove(board);
+	//ArrayList<IntegerPair> possibleMoves = board.getAvailableMoves(-playerMarker);
+	//if (possibleMoves.size() > 0){
+	//    IntegerPair compMove = possibleMoves.get(0);
 	//    board.add(compMove.first(), compMove.second(), -playerMarker);
 	//}
+	if (compMove != null){
+	    board.add(compMove.first(), compMove.second(), -playerMarker);
+	}
     }
     
     public String getUserInput(String message, String[] possibleInputs){

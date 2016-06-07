@@ -9,7 +9,10 @@ public class IntegerPairArray implements Iterable<IntegerPair>{
     }
 
     public IntegerPairArray(ArrayList<IntegerPair> array){
-	IntegerPairArray = array;	
+	this();
+	for(int i = 0; i < array.size(); i++){
+	    IntegerPairArray.add(array.get(i));
+	}
     }
 
     public void add(IntegerPair intPair){
@@ -21,7 +24,7 @@ public class IntegerPairArray implements Iterable<IntegerPair>{
     }
 
     public String toString(){
-	String ans = "";
+	String ans = "This is an IntegerPairArray: ";
 	for(IntegerPair pair: IntegerPairArray){
 	    ans += pair;
 	}

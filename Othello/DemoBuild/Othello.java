@@ -102,7 +102,7 @@ public class Othello{
 	    System.out.println(winner);
 	}
 	if (!userInputRow.equals("q") && !userInputCol.equals("q")){
-	    if (winner == 1){
+	    if (winner == -playerMarker){
 		System.out.println("No Surprise, BotForTheWin!");
 	    }else{
 		System.out.println("You won!"); // this should not print

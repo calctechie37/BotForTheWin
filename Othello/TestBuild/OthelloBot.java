@@ -4,14 +4,13 @@ public class OthelloBot{
 
     private Board board;
     private ArrayList<IntegerPairArray> changesTracker;
-    private IntegerPair lastMove;
     private IntegerPair compMove;
     private final static int BLACK = 1;
     private final static int WHITE = -1;
     private int myColor = BLACK;
     private int height;
     private int width;
-    private int searchDepth = 2;
+    private int searchDepth = 1;
     private int score[][] = {{20, -3, 11, 8, 8, 11, -3, 20},
 			     {-3, -7, -4, 1, 1, -4, -7, -3},
 			     {11, -4, 2, 2, 2, 2, -4, 11},
@@ -20,7 +19,6 @@ public class OthelloBot{
 			     {11, -4, 2, 2, 2, 2, -4, 11},
 			     {-3, -7, -4, 1, 1, -4, -7, -3},
 			     {20, -3, 11, 8, 8, 11, -3, 20}};
-    private boolean easyDifficulty = true;
 
     public OthelloBot(){
 	changesTracker = new ArrayList<IntegerPairArray>();
@@ -35,10 +33,8 @@ public class OthelloBot{
 	this.board = board;
 	height = board.getHeight();
 	width = board.getWidth();
-	System.out.println(myColor);
 	changesTracker.clear();
 	double score = minimax(myColor, 0, Double.MIN_VALUE, Double.MAX_VALUE);
-	System.out.println(compMove.first() + " " + compMove.second());
 	return compMove;
     }
 
@@ -49,22 +45,16 @@ public class OthelloBot{
 		double HeuristicScore = evaluate(winner);
 		return HeuristicScore;
 	    }
-	}else{
-	    if (board.getEmptyTilesCount() < (height * width - 4 - 18)){
-		searchDepth = easyDifficulty ? 15 : 20;
-	    }
 	}
 	depth++;
 	ArrayList<Double> scores = new ArrayList<Double>();
 	ArrayList<IntegerPair> moves = new ArrayList<IntegerPair>();
 	for(IntegerPair move: board.getAvailableMoves(turncopy)){
-	    System.out.println("Adding to board: " + move.first() + " " + move.second());
-	    lastMove = new IntegerPair(move.first(), move.second());
 	    board.add(move.first(), move.second(), turncopy);
-	    System.out.println(board);
 	    IntegerPairArray temp = new IntegerPairArray(board.getBoardChangesTracker());
 	    changesTracker.add(temp);
-	    System.out.println(temp);
+	    System.out.println(changesTracker);
+	    System.out.println(board);
 	    scores.add(minimax(-turncopy, depth, alpha, beta));
 	    moves.add(move);
 	    if (turncopy == myColor){
@@ -81,11 +71,9 @@ public class OthelloBot{
 		    beta = score;
 		}
 	    }
-	    System.out.println("Removing from board: " + move.first() + " " + move.second());
 	    int index = changesTracker.size() - 1;
-	    IntegerPairArray temp2 = changesTracker.remove(index);
-	    System.out.println(temp2);
-	    board.remove(move.first(), move.second(), temp2);//changesTracker.remove(index));
+	    board.remove(move.first(), move.second(), changesTracker.remove(index));
+	    System.out.println(changesTracker);
 	    System.out.println(board);
 	    if (alpha >= beta){
 		break;

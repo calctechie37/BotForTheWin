@@ -12,7 +12,7 @@ public class Board{
     private IntegerPair lastMove;
     private static final int[] rowOffset = {-1, -1, -1, 0, 0, 1, 1, 1};
     private static final int[] colOffset = {-1, 0, 1, -1, 1, -1, 0, 1};
-    private boolean debug = false;
+    private boolean debug = true;
 
     public Board(){
 	boardChangesTracker = new ArrayList<IntegerPair>();
