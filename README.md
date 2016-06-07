@@ -20,7 +20,6 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
 
 ##<b>Things to Patch Up...</b>
 <b>Connect Four</b>
- * Modify the instruction to tell the user how to quit ("q")
 
 <b>Othello</b>
  * A very basic bot has been written, need to start on evaulation function soon
@@ -31,6 +30,11 @@ We plan to optimize the Connect Four Bot some more.  After all, Charles is plann
 <b>Super TicTacToe</b>
 
 ##<b>Development Log (Othello)</b>
+<b>6/6/16</b>
+<br>
+Patrick: Tried to add a minimax version of the bot, but fail to fix all bugs...  Leaving it with the old bot...
+<br>
+
 <b>6/5/16</b>
 <br>
 Development is progressing again after a week (or so) of inactivity...

@@ -226,7 +226,8 @@ public class Board{
 	    + "you will be playing against a bot.  Choose the column to drop the marker in by\nentering the "
 	    + "corresponding column number which are conveniently displayed on both the top and bottom of the"
 	    + "\nboard.  The most recent move would be colored green.  Your marker is a red 'X' while the "
-	    + "bot's marker is a blue 'O'.\n\nGood luck and enjoy!\n\n";
+	    + "bot's marker is a blue 'O'.\n\nGood luck and enjoy!\n\nYou may quit the game by entering 'q' as your input."
+	    + "\n\n";
 	String ans = "\033[2J\033[0;0H" + header + numString + "\n|";
 	for(int i = height - 1; i >= 0; i--)
 	    {
